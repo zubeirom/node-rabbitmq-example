@@ -9,13 +9,16 @@ amqp.connect("amqp://localhost", function (error0, connection) {
     if (error1) {
       throw error1;
     }
-    var queue = "exampleQueue";
+    var queue = "orange";
 
     channel.assertQueue(queue, {
       durable: false,
     });
 
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+    console.log(
+      " [*] RECEIVER 2 Waiting for messages in %s. To exit press CTRL+C",
+      queue
+    );
 
     channel.consume(
       queue,

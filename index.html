@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=s, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="message" />
+    <select id="mySelect">
+      <option value="apple">Apple</option>
+      <option value="orange">Orange</option>
+      <option value="pineapple">Pineapple</option>
+      <option value="banana">Banana</option>
+    </select>
+    <button onclick="send();">Send</button>
+    <p id="res"></p>
+  </body>
+  <script>
+    function send() {
+      const val = document.getElementById("message").value.trim();
+      if (!val) {
+        alert("Invalid input");
+        return;
+      }
+
+      const url = "http://localhost:3000/send";
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            message: val,
+            fruit: document.getElementById("mySelect").value,
+        }),
+      }).then((res) => {
+        if (res.status === 200) {
+          document.getElementById("res").innerHTML = "Message sent";
+        } else {
+          document.getElementById("res").innerHTML = "Error";
+        }
+      });
+    }
+  </script>
+</html>
